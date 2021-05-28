@@ -1,0 +1,90 @@
+<%- include('partials/header' , {roomId : ''}) %>
+<body>
+    <%- include('partials/navbar')%>
+    <div class="container-fluid">
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12 col-lg-6">
+      <div class="content">
+        <h2 > WeMeet.</h2>
+        <!-- <p class="lead my-4">We re-engineered the service we built for secure business meetings, Google Meet, to make it free and available for all.</p> -->
+            <div>
+                <div class="row">
+                  <div class="col-6">
+                    <a class="btn" onclick="redirect()" style="background: #08645A; color: white;" type="button"><i class="fas fa-video"> </i>  New Metting</a>
+                  </div>
+                </div>
+                <div class="d-flex my-20">
+                  <input type="text" class="form-control mr-5"  id="roomid-input" style="width: 70%; height:50px;" placeholder="Enter the meeting id to join">
+                  <button class="btn btn-black disabled btn-block" style="width: 30%; height:50px;" type="button" id="join-btn">Join</button>
+                </div>
+                <hr>
+                <!-- <p><i class="fab fa-instagram"></i> Follow Me On Instagram</p>
+                <script src="https://apps.elfsight.com/p/platform.js" defer>
+                </script>
+                <div class="elfsight-app-888e26a1-d3ab-47e1-9f83-c83df8203404"></div> -->
+              </div>
+      </div>
+           </div>
+           <div class="col-lg-6 col-md-12 col-sm-12">
+             <div class="content">
+              <img width="100%" src="https://www.gstatic.com/meet/google_meet_marketing_ongoing_meeting_grid_427cbb32d746b1d0133b898b50115e96.jpg"
+              alt="" 
+              class="shadow rounded"
+              srcset=""
+              >
+             </div>
+           </div>
+      </div>
+      </div>
+    </div>
+    <div class="sticky-alerts"></div>
+<!-- <footer class="footer text-center">
+  <div class="container">
+      <p class="text-muted my-5"><i class="fab fa-google"></i><span class="font-weight-bold">oogle</span> Meet By Meer Bahadin </p>
+  </div>
+</footer> -->
+</body>
+<script>
+  function redirect() {
+    location.replace("http://localhost:5000/")
+  }
+  </script>
+<script defer>
+const idInput = document.getElementById('roomid-input');
+const joinBtn = document.getElementById('join-btn');
+idInput.addEventListener('input' , (e) => {
+  joinBtn.classList.remove('disabled');
+  if(e.target.value === '') {
+    joinBtn.classList.add('disabled');
+  }
+})
+
+setTimeout(() => {
+  document.querySelector('a.eapps-link').remove();
+}, 1000);
+
+joinBtn.addEventListener('click' , () => {
+  const id = idInput.value;
+  const regex = new RegExp(/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i);
+  if(regex.test(id)) {
+     window.location.href = `/${idInput.value}`;
+  } else {
+    toastSecondaryAlert();
+  }
+})
+
+function toastSecondaryAlert() {
+    halfmoon.initStickyAlert({
+      content: "We are sorry but the id you entered does not match any meeting",
+      title: "Invalid Id",
+      alertType: "alert-danger",
+      fillType: "filled-dm"
+    });
+  }
+  
+
+</script>
+</html>
+
+<%- include('partials/footer') %>
